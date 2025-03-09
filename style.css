@@ -1,0 +1,73 @@
+           body{
+             background-color: rgb(248, 245, 242);
+
+           }
+
+
+           h1 {
+            text-align: center;
+            width: 100%;
+            margin: 0 auto;
+            background-color: rgb(69, 150, 226);
+        }
+
+        .form_contener {
+            width: 300px;
+            border: 2px solid black;
+            border-radius: 20px;
+            padding: 20px;
+            font-size: 20px;
+            margin: 50px auto;
+            text-align: center;
+            background-color: white;
+        }
+
+        label, input {
+            display: inline-block; 
+            margin-bottom: 10px;
+        }
+
+        input {
+            width: 80%;
+            margin-left: 10px; 
+        }
+
+        .button {
+            text-align: center;
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 15px;
+            width: 50%;
+            background-color: rgb(108, 165, 219);
+            cursor: pointer;
+        }
+        .button:hover{
+            background-color: rgb(70, 134, 192);
+        }
+
+        #booklist{
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .box{
+            width: 200px;
+            margin: 10px;
+            padding: 20px;
+            border: 1px solid black;
+            border-radius: 10px;
+            font-size: 20px;
+            background-color: white;
+        }
+
+        .remove{
+            color: red;
+            cursor: pointer;
+            border:red solid 1px;
+            border-radius:5px;
+        }
+        .remove:hover{
+            background-color: red;
+            color:white;
+        }
