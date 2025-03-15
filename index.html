@@ -3,41 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Library app</title>
+    <title>Tic Tac Toe</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Book Library</h1>
     
+
     
-    <div class="form_contener">
-        <form id="bookform">
-            <label for="author">Author</label>
-            <input type="text" id="author" required>
+    <h1>Tic Tac Toe</h1>
+    
+    <div class="allcontainers">
+          
+        <div>
+    <form >
+        <label for="player">Player 1:</label>
+        <input type="text" id="player1" name="player" required>
+        <label for="player2">Player 2:</label>
+        <input type="text" id="player2" name="player2" required>
+        <button type="submit" id="submit">Submit</button>
+     </form>
+               </div>
 
-            <label for="title">Title</label>
-            <input type="text" id="title" required>
 
-            <label for="number">Number of Pages</label>
-            <input type="number" id="number" required>
 
-            <label for="checkbox">I have read the book</label>
-            <input type="checkbox" id="checkbox">
-
-            <button class="button" type="submit">Add Book</button>
-        </form>
-
+     <p id="message"></p>
+    <div id="contener">
+        <button  class="playboard" type="button" ></button>
+        <button  class="playboard" type="button" ></button>
+        <button  class="playboard" type="button" ></button>
+        <button  class="playboard" type="button" ></button>
+        <button  class="playboard" type="button" ></button>
+        <button  class="playboard" type="button" ></button>
+        <button  class="playboard" type="button" ></button>
+        <button  class="playboard" type="button" ></button>
+        <button  class="playboard" type="button" ></button>
     </div>
-    <h1>Book list</h1>
+    <button class="reset" id="reset">Play Again</button>
 
-    <div id="booklist">
-        
-      
-        
-        
-        
-    </div>
-    
-    <script src="script.js"></script>
+</div>
+    <script src="script.js"></script>    
 </body>
+
 </html>

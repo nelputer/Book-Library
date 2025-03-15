@@ -1,74 +1,94 @@
-const myLibrary = [];
+let board = [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '];
+let currentPlayer = 'X';
 
-function Book(author, title, pages, read) {
-  this.id = crypto.randomUUID();
-  this.author = author;
-  this.title = title;
-  this.pages = pages;
-  this.read = read;
-}
+let player1="";
+let player2="";
 
-function addBookToLibrary(author, title, pages, read) {
-  const newBook = new Book(author, title, pages, read);
-  myLibrary.push(newBook);
-  displayBooks();
-}
-
-function displayBooks() {
-  const booklist = document.getElementById('booklist');
-  booklist.innerHTML = ""; 
-
-  myLibrary.forEach((book, index) => {
-    let childDiv = document.createElement("div");
-    childDiv.classList.add("box");
-    childDiv.innerHTML = `
-      <strong><p>Author: ${book.author}</p></strong>
-      <strong><p>Title: ${book.title}</p></strong>
-      <strong><p>Number of Pages: ${book.pages}</p></strong>
-      <strong><label for="read-${index}">I have read:</label>
-      <select id="read-${index}" onchange="toggleRead(${index})">
-        <option value="true" ${book.read ? "selected" : ""}>Yes</option>
-        <option value="false" ${!book.read ? "selected" : ""}>No</option>
-      </select>
-      </strong>
-      <button class="remove" onclick="removeBook('${book.id}')">Remove Book</button>
-    `;
-    booklist.appendChild(childDiv);
-  });
-}
-
-function toggleRead(index) {
-  const selectElement = document.getElementById(`read-${index}`);
-  myLibrary[index].read = selectElement.value === "true"; 
-  displayBooks(); 
+function checkWin() {
+    const winPatterns = [
+        [0, 1, 2], [3, 4, 5], [6, 7, 8],
+        [0, 3, 6], [1, 4, 7], [2, 5, 8],
+        [0, 4, 8], [2, 4, 6] 
+    ];
+        
+    for (let pattern of winPatterns) {
+        const [a, b, c] = pattern;
+        if (board[a] !== ' ' && board[a] === board[b] && board[b] === board[c]) {
+            return true; 
+        }
+    }
+    return false;
 }
 
 
 
-function removeBook(id) {
-  const index = myLibrary.findIndex(book => book.id === id);
-  
-  if (index !== -1) {
-    myLibrary.splice(index, 1); 
-    displayBooks(); 
-  }
+function isBoardFull() {
+    return board.every(cell => cell !== ' '); 
 }
 
 
+function draw(index, button) {
+    let message=document.getElementById("message");
+
+    if (board[index] === ' ' && !checkWin()) {
+        board[index] = currentPlayer;
+        button.innerText = currentPlayer; 
+
+        if (checkWin()) {
+            if (player1 && player2){
+                currentPlayer === 'X' ? message.innerHTML = ` ${player1} wins!` : message.innerHTML = ` ${player2} wins!`;
+            }
+            else{
+              message.innerHTML = `Player ${currentPlayer} wins!`;
+            }
+            return; 
+        }
 
 
 
-document.getElementById('bookform').addEventListener('submit', function(event) {
-  event.preventDefault();
+        if (isBoardFull()) {
+            message.innerHTML = "No Player Wins, Play Again";
+            return; 
+        }
 
-  const author = document.getElementById('author').value;
-  const title = document.getElementById('title').value;
-  const pages = document.getElementById('number').value;
-  const read = document.getElementById('checkbox').checked;
-  addBookToLibrary(author, title, pages, read);
-  this.reset();
+        currentPlayer = currentPlayer === 'X' ? 'O' : 'X'; // Switch player
+       
+    } else {
+       message.innerHTML ='Spot taken';
+    }
+}
+
+const buttons = document.querySelectorAll(".playboard");
+
+buttons.forEach((button, index) => {
+    button.addEventListener("click", function() {
+        draw(index, this);
+    });
 });
 
-addBookToLibrary("George Orwell", "1984", 328, true);
-addBookToLibrary("J.R.R. Tolkien", "The Hobbit", 310, false);
-addBookToLibrary("Harper Lee", "To Kill a Mockingbird", 281, true);
+
+const reset = document.getElementById("reset");
+
+reset.addEventListener("click",function(){
+     board = [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '];
+     currentPlayer = 'X';
+     document.getElementById("message").innerHTML =" ";
+
+     document.querySelectorAll(".playboard").forEach(button => {
+        button.innerText = " ";    });
+
+        document.querySelector("form").style.display = "block"; 
+})
+
+
+
+document.querySelector("form").addEventListener("submit", function (event) {
+    event.preventDefault();
+    this.style.display = "none"; 
+    
+    
+  player1= document.getElementById("player1").value;
+  player2= document.getElementById("player2").value;
+
+
+});
